@@ -1,5 +1,5 @@
 /* =========================================================
-   Mauli Sliding and Glass Arts: stylesheet ("Midnight Glass")
+   Mauli Sliding and Glass: stylesheet ("Midnight Glass")
    - Mobile-first: base styles are for phones; @media (min-width)
      blocks add layout for tablets, laptops and big screens.
    - Light / dark: follows the visitor's device setting
@@ -341,8 +341,16 @@ html[lang="mr"] .footer-h { letter-spacing: 0; font-size: .95rem; text-transform
 
 /* ---------- 9. Responsive layouts ---------- */
 
-/* Large phones (≥ 400px): show the call button in the header */
-@media (min-width: 400px) {
+/* Very small phones (< 360px): compact header */
+@media (max-width: 359px) {
+  .brand-mark { width: 32px; height: 32px; }
+  .brand { gap: 8px; }
+  .lang-switch button { padding: 5px 8px; }
+  .brand-sub { display: none; }   /* not enough room on very small phones */
+}
+
+/* Large phones (≥ 480px): show the call button in the header */
+@media (min-width: 480px) {
   .header-call { display: inline-flex; padding: 0; }
   .lang-switch button { padding: 6px 12px; }
 }
@@ -430,3 +438,107 @@ html[lang="mr"] .footer-h { letter-spacing: 0; font-size: .95rem; text-transform
   transition: border-color .2s ease, background-color .2s ease;
 }
 .hero-tags a:hover { border-color: var(--accent); background: var(--surface-2); color: var(--heading); }
+
+/* =========================================================
+   10. Shop name (wordmark): Cinzel caps + gold metal finish
+   Animations: name slides open like a window, a light sheen
+   sweeps across like light on glass, logo panes slide shut.
+   ========================================================= */
+@font-face {
+  font-family: "Cinzel Brand";
+  src: url("../assets/fonts/cinzel-brand.woff2") format("woff2");   /* 7 KB: only the letters of the shop name */
+  font-weight: 600 700;
+  font-display: swap;
+}
+:root {
+  --brand-1: #6b4c12;      /* light mode: deep bronze → gold */
+  --brand-2: #a87d2c;
+  --brand-shine: #f3dca4;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --brand-1: #c9a45c; --brand-2: #ead19a; --brand-shine: #fffaf0; }
+}
+
+.brand-name, .footer-brand {
+  font-family: "Cinzel Brand", "Manrope", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  background-image: linear-gradient(100deg,
+      var(--brand-1) 0%, var(--brand-2) 30%, var(--brand-shine) 46%,
+      var(--brand-2) 54%, var(--brand-1) 80%, var(--brand-2) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+.brand-name { font-size: clamp(1.12rem, 1rem + .6vw, 1.32rem); line-height: 1.05; padding-right: .16em; /* balances trailing letter-spacing */ }
+.footer-brand { font-size: 1.05rem; letter-spacing: .12em; }
+/* Marathi name: same gold finish, no caps tracking (it would break Devanagari joins) */
+html[lang="mr"] :is(.brand-name, .footer-brand) { font-family: var(--font-mr); letter-spacing: 0; font-weight: 800; }
+html[lang="mr"] .brand-name { font-size: 1.3rem; line-height: 1.45; padding-top: .08em; margin-bottom: -.12em; }
+
+.brand-sub { --sub-track: .1em; letter-spacing: var(--sub-track); margin-top: 3px; font-size: .62rem; }
+@media (min-width: 600px) { .brand-sub { --sub-track: .22em; font-size: .7rem; } }
+
+/* Load animation (runs once) */
+.brand-name { animation: brand-open 1s cubic-bezier(.2, .7, .2, 1) .15s both, brand-sheen 1.6s ease-in-out 1.05s both; }
+.brand-sub  { animation: brand-sub 1.1s cubic-bezier(.2, .7, .2, 1) .45s both; }
+.brand-mark .bm-left  { animation: bm-left 1s cubic-bezier(.2, .7, .2, 1) .1s both; }
+.brand-mark .bm-right { animation: bm-right 1s cubic-bezier(.2, .7, .2, 1) .1s both; }
+.brand-mark .bm-sill  { animation: bm-sill .8s ease .5s both; transform-origin: 20px 33px; }
+/* Sheen again on hover / keyboard focus */
+.brand:hover .brand-name, .brand:focus-visible .brand-name { animation: brand-sheen-2 1.2s ease-in-out both; }
+
+@keyframes brand-open  { from { clip-path: inset(0 100% 0 0); opacity: .2; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+@keyframes brand-sheen   { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes brand-sheen-2 { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes brand-sub   { from { opacity: 0; letter-spacing: .4em; } to { opacity: 1; letter-spacing: var(--sub-track); } }
+@keyframes bm-left     { from { transform: translateX(-4px); opacity: .4; } to { transform: none; opacity: 1; } }
+@keyframes bm-right    { from { transform: translateX(6px); opacity: .4; } to { transform: none; opacity: 1; } }
+@keyframes bm-sill     { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+html[lang="mr"] .brand-sub { animation-name: fade-in; letter-spacing: 0; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (min-width: 1024px) {
+  .brand-name { font-size: 1.45rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-name { background-position: 0 0; }
+}
+
+/* =========================================================
+   11. Real project gallery (masonry: photos keep their shape)
+   ========================================================= */
+.gallery { display: block; columns: 2; column-gap: 12px; }
+.gallery li { break-inside: avoid; margin-bottom: 12px; }
+.gallery .g-item { aspect-ratio: auto; }
+.gallery .g-item img { height: auto; }
+.g-cap { font-size: .85rem; padding: 32px 12px 10px; }
+
+.videos { margin-top: 48px; }
+.videos-title { font-size: 1.25rem; margin-bottom: 16px; }
+.video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 640px; }
+.video-card { margin: 0; }
+.video-card video { width: 100%; height: auto; aspect-ratio: 9 / 13; object-fit: cover; border-radius: var(--radius); background: #0b1419; border: 1px solid var(--line); }
+.video-card figcaption { margin-top: 8px; font-size: .9rem; font-weight: 650; color: var(--muted); }
+
+/* About with shop photo */
+.about-grid { display: grid; gap: 28px; align-items: center; margin-bottom: 36px; }
+.about-copy p:not(.kicker) { color: var(--muted); font-size: 1.05rem; }
+.about-photo { margin: 0; }
+.about-photo img { width: 100%; height: auto; max-height: 520px; object-fit: cover; object-position: top; border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.about-photo figcaption { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+
+@media (min-width: 600px) {
+  .gallery { column-gap: 16px; }
+  .gallery li { margin-bottom: 16px; }
+  .g-cap { font-size: .95rem; padding: 36px 16px 12px; }
+  .video-grid { gap: 16px; }
+}
+@media (min-width: 1024px) {
+  .gallery { columns: 3; column-gap: 20px; }
+  .gallery li { margin-bottom: 20px; }
+  .about-grid { grid-template-columns: 1.1fr .9fr; gap: 64px; margin-bottom: 48px; }
+  .about-photo img { max-height: 460px; }
+}

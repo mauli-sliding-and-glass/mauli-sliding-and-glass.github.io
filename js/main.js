@@ -1,5 +1,5 @@
 /* =========================================================
-   Mauli Sliding and Glass Arts: site script (no libraries)
+   Mauli Sliding and Glass: site script (no libraries)
    ========================================================= */
 
 /* ---------------------------------------------------------

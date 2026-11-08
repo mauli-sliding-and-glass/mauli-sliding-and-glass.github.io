@@ -1,6 +1,6 @@
-# Mauli Sliding and Glass Arts: Website
+# Mauli Sliding and Glass: Website
 
-A fast, bilingual (English / मराठी) one-page website for **Mauli Sliding and Glass Arts, Jamkhed, Maharashtra**.
+A fast, bilingual (English / मराठी) one-page website for **Mauli Sliding and Glass, Jamkhed, Maharashtra**.
 
 - **Cost:** ₹0. Plain HTML, CSS and JavaScript, hosted free on Cloudflare Pages.
 - **No frameworks, no build step, no dependencies.** Edit a file, upload it, and the site updates.
