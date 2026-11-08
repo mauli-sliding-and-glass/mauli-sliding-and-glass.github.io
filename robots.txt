@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mauli-sliding-and-glass.github.io/sitemap.xml
