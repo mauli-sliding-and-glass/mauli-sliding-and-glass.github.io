@@ -8,15 +8,20 @@
    --------------------------------------------------------- */
 const SITE = {
   // Shown on the page, e.g. '+91 98765 43210'
-  phone: '',
+  phone: '+91 90224 08529',
+  phone2: '+91 90752 72776',        // alternative number
   // WhatsApp number: digits only, with 91 country code, e.g. '919876543210'
-  whatsapp: '',
+  whatsapp: '919022408529',
   // Text in both languages, e.g. { en: 'Mon–Sat, 9:00 am – 8:00 pm', mr: 'सोम–शनि, सकाळी 9 ते रात्री 8' }
-  hours: { en: '', mr: '' },
-  street: { en: '', mr: '' },
-  owner: { en: '', mr: '' },
-  experience: { en: '', mr: '' },   // e.g. { en: '10+ years', mr: '10+ वर्षे' }
-  mapsUrl: 'https://maps.app.goo.gl/akUdaipjxFDoyJ7B6'
+  hours: { en: 'Every day, 10:00 AM – 9:00 PM', mr: 'दररोज, सकाळी 10 ते रात्री 9' },
+  hoursShort: { en: '10 AM – 9 PM', mr: 'सकाळी 10 ते रात्री 9' },   // shown in the hero
+  street: { en: 'Shop No. 01, Gala No. 69, Opp. Market Yard & Ashtekar Snacks, Beed Road',
+            mr: 'दुकान क्र. 01, गाळा क्र. 69, मार्केट यार्ड व आष्टेकर स्नॅक्ससमोर, बीड रोड' },
+  owner: { en: 'Pradip (Mauli) Mule', mr: 'प्रदीप (माऊली) मुळे' },
+  experience: { en: 'Since 2023', mr: '2023 पासून' },   // e.g. { en: '10+ years', mr: '10+ वर्षे' }
+  // Google Maps: opens the shop's listing / directions (free, no API key needed)
+  mapsUrl: 'https://maps.app.goo.gl/4UBhAn3v8gNAWKBp6',                 // shop's own Google Maps listing
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=18.7399871,75.3156445'   // shop's exact location
 };
 
 (function () {
@@ -129,9 +134,11 @@ const SITE = {
       if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
       else { a.setAttribute('href', '#contact'); a.removeAttribute('target'); }
     });
-    const tel = digits(SITE.phone);
-    $$('.js-call').forEach((a) => a.setAttribute('href', tel ? 'tel:+' + (tel.length === 10 ? '91' + tel : tel) : '#contact'));
-    $$('.js-maps').forEach((a) => a.setAttribute('href', SITE.mapsUrl));
+    $$('.js-call').forEach((a) => {
+      const tel = digits(SITE[a.dataset.phone || 'phone']);   // data-phone="phone2" uses the alternative number
+      a.setAttribute('href', tel ? 'tel:+' + (tel.length === 10 ? '91' + tel : tel) : '#contact');
+    });
+    $$('.js-maps').forEach((a) => a.setAttribute('href', a.classList.contains('js-dir') ? SITE.directionsUrl : SITE.mapsUrl));
   }
 
   const status = $('.form-status');

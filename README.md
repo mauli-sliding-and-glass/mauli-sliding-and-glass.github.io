@@ -43,15 +43,15 @@ Placeholders appear on the site with a **yellow dashed box**. Nothing has been i
 
 | Item | Where to add it |
 |---|---|
-| Phone number | `js/main.js` → `SITE.phone` |
-| WhatsApp number | `js/main.js` → `SITE.whatsapp` (digits only, with 91, e.g. `919876543210`) |
-| Business hours | `js/main.js` → `SITE.hours` (English + Marathi) |
-| Street address | `js/main.js` → `SITE.street` |
-| Owner name | `js/main.js` → `SITE.owner` |
-| Years of experience | `js/main.js` → `SITE.experience` |
+| ~~Phone / WhatsApp~~ ✅ | Added: 9022408529 (also WhatsApp), alternative 9075272776 |
+| ~~Owner name~~ ✅ | Added: Pradip (Mauli) Mule |
+| ~~Instagram~~ ✅ | Added: @mauli_sliding_glass_jamkhed |
+| ~~Business hours~~ ✅ | Added: every day, 10:00 AM – 9:00 PM |
+| ~~Street address~~ ✅ | Added: Shop No 01, Gala No 69, Opp Market Yard & Ashtekar Snacks, Beed Rd, Jamkhed 413201 |
+| ~~Experience~~ ✅ | Added: since 2023 |
 | Real project photos | `assets/images/work-1.webp` … `work-6.webp` (see §4) |
-| Confirm services list | Six services are shown (sliding windows, sliding doors, glass partitions, decorative glass, mirrors, mosquito net windows). Remove or change any that are not offered: `index.html` + `js/translations.js`. |
-| Google Maps link | The current link opens a place named **"Shinde chaha"**. Please confirm it points to the shop (see §7). |
+| Confirm services list | Six services are shown (sliding windows, sliding doors, glass partitions, decorative glass, mirrors, steel railings). Remove or change any that are not offered: `index.html` + `js/translations.js`. |
+| ~~Google Maps link~~ ✅ | Shop's own listing: https://maps.app.goo.gl/4UBhAn3v8gNAWKBp6 (directions use its exact coordinates) |
 
 **Example** (in `js/main.js`):
 
@@ -63,14 +63,14 @@ const SITE = {
   street: { en: 'Near Bus Stand, Beed Road', mr: 'बस स्टँडजवळ, बीड रोड' },
   owner: { en: '…', mr: '…' },
   experience: { en: '10+ years', mr: '10+ वर्षे' },
-  mapsUrl: 'https://maps.app.goo.gl/akUdaipjxFDoyJ7B6'
+  mapsUrl: 'https://maps.app.goo.gl/4UBhAn3v8gNAWKBp6',
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=18.7399871,75.3156445'
 };
 ```
 
-Once the phone number and address are confirmed, also add them for Google in `index.html`, inside the `<script type="application/ld+json">` block:
+The address, phones and hours are also written for Google in `index.html`, inside the `<script type="application/ld+json">` block:
 
 ```json
-"telephone": "+91-98765-43210",
 "address": { "@type": "PostalAddress", "streetAddress": "…", "addressLocality": "Jamkhed", … }
 ```
 
@@ -178,7 +178,7 @@ If something breaks, Cloudflare keeps every past version: **Workers & Pages → 
 
 ## 7. Free extras worth doing (no code needed)
 
-- **Google Business Profile** (free, https://business.google.com). This is the biggest win for local customers searching "glass work Jamkhed" on Google and Maps. It also gives you a correct Maps link with the shop's own name. Put that link in `SITE.mapsUrl` and in the three `href="https://maps.app.goo.gl/…"` places in `index.html`.
+- **Google Business Profile**: the shop is already listed on Google Maps as "Mauli Sliding & Glass". Claim/verify it at https://business.google.com (free) so you can add photos, hours and reply to customers, and add this website link to the listing.
 - **Google Search Console** (free). Add the site so Google indexes it faster.
 - A custom domain (e.g. `maulislidingglass.in`) is **optional and not free** (about ₹500–900/year). The `.pages.dev` address works without one.
 
