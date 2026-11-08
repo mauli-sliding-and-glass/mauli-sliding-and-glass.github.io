@@ -6,7 +6,9 @@ A fast, bilingual (English / मराठी) one-page website for **Mauli Slidi
 - **No frameworks, no build step, no dependencies.** Edit a file, upload it, and the site updates.
 - **Size:** about 78 KB in total for the first visit. Lighthouse scores 100 for Performance, Accessibility, Best Practices and SEO.
 
-Live address (after deployment): **https://mauli-sliding-and-glass.pages.dev**
+Live website: **https://ramdasjagtap.github.io/mauli-sliding-glass-arts/** (GitHub Pages, free)
+
+Every `git push` to `main` updates the live site automatically within 1–2 minutes.
 
 ---
 
